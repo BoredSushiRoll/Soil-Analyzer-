@@ -13,7 +13,7 @@
 #define PIN_TX_ESP      3       
 
 // LCD CONFIGURATION
-// Address is usually 0x27 or 0x3F. We'll try 0x27 first.
+// Address is usually 0x27 or 0x3F.
 LiquidCrystal_I2C lcd(0x27, 16, 2);  
 
 // SENSORS
@@ -46,7 +46,7 @@ void loop() {
     float h = dht.readHumidity();
     int soilRaw = analogRead(PIN_SOIL);
     
-    // Direct Drive Mapping
+    // Drive Mapping
     int soilPercent = map(soilRaw, 1023, 200, 0, 100); 
     soilPercent = constrain(soilPercent, 0, 100);
 
@@ -57,7 +57,7 @@ void loop() {
     lcd.setCursor(0, 0); 
     lcd.print(F("Air:"));
     lcd.print((int)t); // Cast to int to save space
-    lcd.print(F("C  Hum:"));
+    lcd.print(F("C Hum:"));
     lcd.print((int)h);
     lcd.print(F("%"));
 
@@ -67,9 +67,9 @@ void loop() {
     lcd.print(soilPercent);
     lcd.print(F("%"));
 
-    // --- SERIAL REPORT ---
+    // --- SERIAL DEBUG ---
     Serial.print(F("Air: ")); Serial.print(t, 1); 
-    Serial.print(F(" | Soil: ")); Serial.println(soilPercent);
+    Serial.print(F(" | Soil Wetness: ")); Serial.println(soilPercent); 
 
-    delay(2000);
+    delay(3000);
 }
